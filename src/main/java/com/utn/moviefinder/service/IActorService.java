@@ -1,5 +1,5 @@
 package com.utn.moviefinder.service;
 
-public interface ICharacterService {
+public interface IActorService {
 
 }

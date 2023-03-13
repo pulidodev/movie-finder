@@ -1,5 +1,5 @@
 package com.utn.moviefinder.model;
 
-public class Character {
+public class Director {
 
 }

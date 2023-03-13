@@ -1,5 +1,5 @@
 package com.utn.moviefinder.service.impl;
 
-public class CharacterServiceImpl {
-    
+public class ActorServiceImpl {
+
 }

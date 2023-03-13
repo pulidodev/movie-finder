@@ -1,5 +1,5 @@
 package com.utn.moviefinder.dto;
 
-public class CharacterDto {
+public class DirectorDto {
 
 }
