@@ -1,5 +1,9 @@
 package com.utn.moviefinder.repository;
 
-public class IDirectorRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.utn.moviefinder.model.Director;
+
+public interface IDirectorRepository extends JpaRepository<Director, Long> {
 
 }

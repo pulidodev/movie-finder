@@ -11,11 +11,17 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class GenreDto {
+public class ActorDetailsDto {
 
     private Long id;
 
-    private String name;
+    private String firstName;
+
+    private String lastName;
+
+    private String birthdate;
+
+    private String nationality;
 
     private List<MovieListDto> movies;
 }

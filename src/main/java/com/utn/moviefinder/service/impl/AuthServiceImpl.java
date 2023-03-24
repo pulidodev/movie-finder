@@ -14,7 +14,7 @@ import com.utn.moviefinder.dto.RegisterRequestDto;
 import com.utn.moviefinder.model.User;
 import com.utn.moviefinder.repository.IUserRepository;
 import com.utn.moviefinder.service.IAuthService;
-import com.utn.moviefinder.util.enums.Role;
+import com.utn.moviefinder.util.Role;
 
 import lombok.RequiredArgsConstructor;
 
@@ -49,7 +49,6 @@ public class AuthServiceImpl implements IAuthService {
                 var jwt = jwtProvider.generateToken(user);
 
                 return AuthResponseDto.builder()
-                                .role(user.getRole())
                                 .token(jwt)
                                 .build();
         }
@@ -69,7 +68,6 @@ public class AuthServiceImpl implements IAuthService {
                 var jwt = jwtProvider.generateToken(user);
 
                 return AuthResponseDto.builder()
-                                .role(user.getRole())
                                 .token(jwt)
                                 .build();
         }

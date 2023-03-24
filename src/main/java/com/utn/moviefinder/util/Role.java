@@ -1,4 +1,4 @@
-package com.utn.moviefinder.util.enums;
+package com.utn.moviefinder.util;
 
 public enum Role {
 

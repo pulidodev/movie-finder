@@ -1,7 +1,5 @@
 package com.utn.moviefinder.dto;
 
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,11 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class GenreDto {
+public class MovieListDto {
 
     private Long id;
 
-    private String name;
-
-    private List<MovieListDto> movies;
+    private String title;
 }
