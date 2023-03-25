@@ -38,17 +38,20 @@ public class ActorController {
         return new ResponseEntity<>(actorService.getActorById(actorId), HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/create")
     public ResponseEntity<ActorDetailsDto> createActor(@RequestBody ActorDetailsDto actorDto) {
         return new ResponseEntity<>(actorService.createActor(actorDto), HttpStatus.CREATED);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PatchMapping("/{actorId}/update")
     public ResponseEntity<ActorDetailsDto> updateActor(@PathVariable Long actorId,
             @RequestBody ActorDetailsDto actorDto) {
         return new ResponseEntity<>(actorService.updateActor(actorId, actorDto), HttpStatus.ACCEPTED);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{actorId}/delete")
     public ResponseEntity<String> deleteActor(@PathVariable Long actorId) {
         actorService.deleteActor(actorId);

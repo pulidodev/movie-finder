@@ -2,6 +2,7 @@ package com.utn.moviefinder.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -31,7 +32,11 @@ public class SecurityConfig {
                 .csrf().disable()
                 .authorizeHttpRequests()
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-                .requestMatchers("/api/auth/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/auth/**").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.PATCH, "/api/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "/api/**").hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()
                 .and()

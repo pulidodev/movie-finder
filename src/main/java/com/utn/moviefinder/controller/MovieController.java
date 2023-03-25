@@ -38,17 +38,20 @@ public class MovieController {
         return new ResponseEntity<>(MovieService.getMovieById(movieId), HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/create")
     public ResponseEntity<MovieDetailsDto> createMovie(@RequestBody MovieDetailsDto movieDto) {
         return new ResponseEntity<>(MovieService.createMovie(movieDto), HttpStatus.CREATED);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PatchMapping("/{movieId}/update")
     public ResponseEntity<MovieDetailsDto> updateMovie(@PathVariable Long movieId,
             @RequestBody MovieDetailsDto movieDto) {
         return new ResponseEntity<>(MovieService.updateMovie(movieId, movieDto), HttpStatus.ACCEPTED);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{movieId}/delete")
     public ResponseEntity<String> deleteMovie(@PathVariable Long movieId) {
         MovieService.deleteMovie(movieId);

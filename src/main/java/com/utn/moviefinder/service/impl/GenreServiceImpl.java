@@ -2,6 +2,7 @@ package com.utn.moviefinder.service.impl;
 
 import java.util.List;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.utn.moviefinder.dto.GenreDto;
@@ -9,40 +10,54 @@ import com.utn.moviefinder.mapper.GenreMapper;
 import com.utn.moviefinder.repository.IGenreRepository;
 import com.utn.moviefinder.service.IGenreService;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class GenreServiceImpl implements IGenreService {
 
-    private final IGenreRepository GenreRepository;
+    private final IGenreRepository genreRepository;
 
-    private final GenreMapper GenreMapper;
+    private final GenreMapper genreMapper;
 
     @Override
     public List<GenreDto> getAllGenres() {
-        return GenreMapper.convertToListDto(GenreRepository.findAll());
+        return genreMapper.convertToListDto(genreRepository.findAll());
     }
 
     @Override
     public GenreDto getGenreById(Long genreId) {
-        return GenreMapper.convertToDto(GenreRepository.findById(genreId).orElseThrow());
+        var genre = genreRepository.findById(genreId)
+                .orElseThrow(() -> new EntityNotFoundException("Genre not found with ID: " + genreId));
+        return genreMapper.convertToDto(genre);
     }
 
     @Override
     public GenreDto createGenre(GenreDto genreDto) {
-        var genre = GenreMapper.convertToEntity(genreDto);
-        return GenreMapper.convertToDto(GenreRepository.save(genre));
+        if (genreDto.getName() == null || genreDto.getName().isEmpty()) {
+            throw new IllegalArgumentException("Genre name cannot be empty or null.");
+        }
+        var genre = genreMapper.convertToEntity(genreDto);
+        return genreMapper.convertToDto(genreRepository.save(genre));
     }
 
     @Override
     public GenreDto updateGenre(Long genreId, GenreDto genreDto) {
-        var genre = GenreRepository.findById(genreId).orElseThrow();
-        return GenreMapper.convertToDto(GenreRepository.save(genre));
+        var genre = genreRepository.findById(genreId)
+                .orElseThrow(() -> new EntityNotFoundException("Genre not found with ID: " + genreId));
+        if (genreDto.getName() != null && !genreDto.getName().isEmpty()) {
+            genre.setName(genreDto.getName());
+        }
+        return genreMapper.convertToDto(genreRepository.save(genre));
     }
 
     @Override
     public void deleteGenre(Long genreId) {
-        GenreRepository.deleteById(genreId);
+        try {
+            genreRepository.deleteById(genreId);
+        } catch (EmptyResultDataAccessException ex) {
+            throw new EntityNotFoundException("Genre not found with ID: " + genreId);
+        }
     }
 }

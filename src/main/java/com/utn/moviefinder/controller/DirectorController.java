@@ -37,17 +37,20 @@ public class DirectorController {
         return new ResponseEntity<>(DirectorService.getDirectorById(directorId), HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/create")
     public ResponseEntity<DirectorDto> createDirector(@RequestBody DirectorDto directorDto) {
         return new ResponseEntity<>(DirectorService.createDirector(directorDto), HttpStatus.CREATED);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PatchMapping("/{directorId}/update")
     public ResponseEntity<DirectorDto> updateDirector(@PathVariable Long directorId,
             @RequestBody DirectorDto directorDto) {
         return new ResponseEntity<>(DirectorService.updateDirector(directorId, directorDto), HttpStatus.ACCEPTED);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{directorId}/delete")
     public ResponseEntity<String> deleteDirector(@PathVariable Long directorId) {
         DirectorService.deleteDirector(directorId);

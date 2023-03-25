@@ -37,17 +37,20 @@ public class GenreController {
         return new ResponseEntity<>(GenreService.getGenreById(genreId), HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/create")
     public ResponseEntity<GenreDto> createGenre(@RequestBody GenreDto genreDto) {
         return new ResponseEntity<>(GenreService.createGenre(genreDto), HttpStatus.CREATED);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PatchMapping("/{genreId}/update")
     public ResponseEntity<GenreDto> updateGenre(@PathVariable Long genreId,
             @RequestBody GenreDto genreDto) {
         return new ResponseEntity<>(GenreService.updateGenre(genreId, genreDto), HttpStatus.ACCEPTED);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{genreId}/delete")
     public ResponseEntity<String> deleteGenre(@PathVariable Long genreId) {
         GenreService.deleteGenre(genreId);
